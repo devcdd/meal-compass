@@ -1,7 +1,10 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
 
-// https://vite.dev/config/
+import react from '@vitejs/plugin-react-swc'
+import {vanillaExtractPlugin} from "@vanilla-extract/vite-plugin";
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), vanillaExtractPlugin({
+    identifiers: ({hash}) => `prefix_${hash}`
+  })],
 })
