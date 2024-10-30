@@ -33,6 +33,7 @@ const VolumetricCanvas = () => {
       style={{
         width: "100%",
         height: "30vh",
+        padding: "10px",
       }}
     >
       <OrbitControls autoRotate={true} enableZoom={false} />{" "}
