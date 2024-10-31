@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { rouletteContainer, rouletteNumber } from "./Roulette.css.ts";
 
 interface RouletteProps {
@@ -9,7 +9,7 @@ interface RouletteProps {
   isClicked: boolean;
 }
 
-const Roulette: FC = (props: RouletteProps) => {
+const Roulette = (props: RouletteProps) => {
   const [randomPick, setRandomPick] = useState(0);
 
   const inflatedList = useMemo(() => {
@@ -31,13 +31,30 @@ const Roulette: FC = (props: RouletteProps) => {
 
   useEffect(() => {
     if (!props.isClicked) return;
-    const randomPick =
-      Math.floor(Math.random() * inflatedList.length - 101) + 100;
+    const randomNumber =
+      Math.floor(Math.random() * (inflatedList.length - 100)) + 100;
     setRandomPick(0);
     setTimeout(() => {
-      setRandomPick(randomPick);
+      setRandomPick(randomNumber);
+      console.log(
+        "%cRoulette.tsx:39 - %cinflatedList[randomPick] = ",
+        "color:yellow;",
+        "color:lightgreen; font-weight:bold",
+        inflatedList,
+        inflatedList[randomNumber],
+        randomNumber,
+      );
     }, 1000);
   }, [props.isClicked]);
+
+  useEffect(() => {
+    console.log(
+      "%cRoulette.tsx:51 - %crandomPick = ",
+      "color:yellow;",
+      "color:lightgreen; font-weight:bold",
+      randomPick,
+    );
+  }, [randomPick]);
 
   return (
     <section className={rouletteContainer}>

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Roulette from "../components/Roulette/Roulette.tsx";
 import Button from "../components/Button/Button.tsx";
 import { useRoulette } from "../hooks/useRoulette.ts";
@@ -8,6 +8,8 @@ import ScrollPrompt from "../components/Prompt/ScrollPrompt.tsx";
 const StartPage = () => {
   const { isClicked, handleSpin } = useRoulette();
 
+  const [visible, setVisible] = useState(true);
+
   const list = Array.from({ length: 10 }, (_, i) => ({
     name: `Item ${i + 1}`,
     id: i + 1,
@@ -16,12 +18,14 @@ const StartPage = () => {
   // 스크롤 이벤트 핸들러
   const handleScroll = (event: WheelEvent) => {
     if (event.deltaY > 0) {
+      setVisible(false);
       // 아래로 스크롤
       window.scrollTo({
         top: document.body.scrollHeight, // 페이지 맨 아래로 스크롤
         behavior: "smooth", // 부드러운 스크롤
       });
     } else {
+      setVisible(true);
       // 위로 스크롤
       window.scrollTo({
         top: 0, // 페이지 맨 위로 스크롤
@@ -37,6 +41,15 @@ const StartPage = () => {
       window.removeEventListener("wheel", handleScroll); // 컴포넌트 언마운트 시 이벤트 해제
     };
   }, []);
+
+  useEffect(() => {
+    console.log(
+      "%cStartPage.tsx:46 - %cvisible = ",
+      "color:yellow;",
+      "color:lightgreen; font-weight:bold",
+      visible,
+    );
+  }, [visible]);
 
   return (
     <main>
@@ -61,7 +74,7 @@ const StartPage = () => {
           <div>오늘 뭐 먹을지 고민이라면?</div>
           <div>랜덤하게 음식점을 골라보세요.</div>
         </div>
-        <ScrollPrompt />
+        <ScrollPrompt visible={visible} />
       </div>
       <section style={{ height: "100vh" }}>
         <div style={{ padding: "2rem", textAlign: "center" }}>
