@@ -1,0 +1,3 @@
+export const QUERY_KEY_FACTORY = {
+  RESTAURANT_LIST: "RESTAURANT_LIST",
+};

@@ -1,19 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Roulette from "../components/Roulette/Roulette.tsx";
 import Button from "../components/Button/Button.tsx";
-import { useRoulette } from "../hooks/useRoulette.ts";
+import { useRoulette } from "../hooks/util/useRoulette.ts";
 import VolumetricCanvas from "../components/Canvas/VolumetricCanvas.tsx";
 import ScrollPrompt from "../components/Prompt/ScrollPrompt.tsx";
+import { useRestaurantListQuery } from "../hooks/api/useRestaurantListQuery.ts";
 
 const StartPage = () => {
+  const restaurantListQuery = useRestaurantListQuery();
   const { isClicked, handleSpin } = useRoulette();
 
   const [visible, setVisible] = useState(true);
 
-  const list = Array.from({ length: 10 }, (_, i) => ({
-    name: `Item ${i + 1}`,
-    id: i + 1,
-  }));
+  const list = useMemo(
+    () =>
+      Array.from({ length: 10 }, (_, i) => ({
+        name: `Item ${i + 1}`,
+        id: i + 1,
+      })),
+    [],
+  );
 
   // 스크롤 이벤트 핸들러
   const handleScroll = (event: WheelEvent) => {
@@ -44,12 +50,12 @@ const StartPage = () => {
 
   useEffect(() => {
     console.log(
-      "%cStartPage.tsx:46 - %cvisible = ",
+      "%cStartPage.tsx:52 - %crestaurantListQuery = ",
       "color:yellow;",
       "color:lightgreen; font-weight:bold",
-      visible,
+      restaurantListQuery.data,
     );
-  }, [visible]);
+  }, [restaurantListQuery]);
 
   return (
     <main>

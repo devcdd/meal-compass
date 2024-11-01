@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { rouletteContainer, rouletteNumber } from "./Roulette.css.ts";
 
+const RouletteStartMessage = "룰렛을 돌려주세요";
+
 interface RouletteProps {
   list: {
     id: number;
@@ -21,7 +23,7 @@ const Roulette = (props: RouletteProps) => {
     }
 
     // 길이가 200이 될 때까지 부풀리기
-    const extendedList = [{ id: -1, name: "룰렛을 돌려주세요" }];
+    const extendedList = [{ id: -1, name: RouletteStartMessage }];
     while (extendedList.length < 200) {
       extendedList.push(...shuffledList);
     }
@@ -36,42 +38,32 @@ const Roulette = (props: RouletteProps) => {
     setRandomPick(0);
     setTimeout(() => {
       setRandomPick(randomNumber);
-      console.log(
-        "%cRoulette.tsx:39 - %cinflatedList[randomPick] = ",
-        "color:yellow;",
-        "color:lightgreen; font-weight:bold",
-        inflatedList,
-        inflatedList[randomNumber],
-        randomNumber,
-      );
-    }, 1000);
-  }, [props.isClicked]);
-
-  useEffect(() => {
-    console.log(
-      "%cRoulette.tsx:51 - %crandomPick = ",
-      "color:yellow;",
-      "color:lightgreen; font-weight:bold",
-      randomPick,
-    );
-  }, [randomPick]);
+    }, 500);
+  }, [inflatedList, props.isClicked]);
 
   return (
-    <section className={rouletteContainer}>
-      <article
-        style={{
-          height: "50px",
-          transform: `translateY(-${randomPick * 50}px)`,
-          transition: randomPick !== 0 ? "transform 2s ease-in-out" : "",
-        }}
-      >
-        {inflatedList?.map((item, index) => (
-          <div key={index} className={rouletteNumber}>
-            {item.name}
-          </div>
-        ))}
-      </article>
-    </section>
+    <>
+      <section className={rouletteContainer}>
+        <article
+          style={{
+            height: "50px",
+            transform: `translateY(-${randomPick * 50}px)`,
+            transition: randomPick !== 0 ? "transform 2s ease-in-out" : "",
+          }}
+        >
+          {inflatedList?.map((item, index) => (
+            <div key={index} className={rouletteNumber}>
+              {item.name}
+            </div>
+          ))}
+        </article>
+      </section>
+      <div style={{ color: "white", zIndex: 9999 }}>
+        {inflatedList[randomPick].name}
+        {inflatedList[randomPick].name !== RouletteStartMessage &&
+          "으로 갈까요?"}
+      </div>
+    </>
   );
 };
 
