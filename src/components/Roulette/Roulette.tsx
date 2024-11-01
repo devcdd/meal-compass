@@ -4,10 +4,10 @@ import { rouletteContainer, rouletteNumber } from "./Roulette.css.ts";
 const RouletteStartMessage = "룰렛을 돌려주세요";
 
 interface RouletteProps {
-  list: {
+  list?: Required<{
     id: number;
     name: string;
-  }[];
+  }>[];
   isClicked: boolean;
 }
 
@@ -16,7 +16,7 @@ const Roulette = (props: RouletteProps) => {
 
   const inflatedList = useMemo(() => {
     // 원본 배열을 랜덤하게 섞기
-    const shuffledList = [...props.list];
+    const shuffledList = [...(props.list || [])];
     for (let i = shuffledList.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffledList[i], shuffledList[j]] = [shuffledList[j], shuffledList[i]];

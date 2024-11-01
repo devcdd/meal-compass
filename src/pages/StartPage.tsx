@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Roulette from "../components/Roulette/Roulette.tsx";
 import Button from "../components/Button/Button.tsx";
 import { useRoulette } from "../hooks/util/useRoulette.ts";
@@ -11,15 +11,6 @@ const StartPage = () => {
   const { isClicked, handleSpin } = useRoulette();
 
   const [visible, setVisible] = useState(true);
-
-  const list = useMemo(
-    () =>
-      Array.from({ length: 10 }, (_, i) => ({
-        name: `Item ${i + 1}`,
-        id: i + 1,
-      })),
-    [],
-  );
 
   // 스크롤 이벤트 핸들러
   const handleScroll = (event: WheelEvent) => {
@@ -84,7 +75,7 @@ const StartPage = () => {
       </div>
       <section style={{ height: "100vh" }}>
         <div style={{ padding: "2rem", textAlign: "center" }}>
-          <Roulette list={list} isClicked={isClicked} />
+          <Roulette list={restaurantListQuery?.data} isClicked={isClicked} />
           <Button onClick={handleSpin}>
             오늘의 메뉴를 랜덤하게 골라보세요!
           </Button>
