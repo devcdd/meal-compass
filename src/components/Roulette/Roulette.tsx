@@ -1,22 +1,39 @@
 import { useEffect, useMemo, useState } from "react";
 import { rouletteContainer, rouletteNumber } from "./Roulette.css.ts";
+import { IRestaurant } from "../../types";
+import { sleep } from "../../utils/common.ts";
+import { FlexHorizontal } from "../../styles/Layout/index.css.ts";
+import RestaurantCard from "../Card/RestaurantCard.tsx";
+import Slider from "react-slick";
 
 const RouletteStartMessage = "룰렛을 돌려주세요";
 
 interface RouletteProps {
-  list?: Required<{
-    id: number;
-    name: string;
-  }>[];
+  list?: IRestaurant[];
   isClicked: boolean;
 }
 
 const Roulette = (props: RouletteProps) => {
   const [randomPick, setRandomPick] = useState(0);
+  const [debouncedResult, setDebouncedResult] = useState<IRestaurant[]>([]);
+
+  const settings = useMemo(() => {
+    return {
+      dots: true,
+      // accessibility: true,
+      infinite: debouncedResult.length > 1,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+    };
+  }, [debouncedResult]);
 
   const inflatedList = useMemo(() => {
+    if (!props.list || props.list.length === 0)
+      return [{ id: -1, name: RouletteStartMessage }];
+
     // 원본 배열을 랜덤하게 섞기
-    const shuffledList = [...(props.list || [])];
+    const shuffledList = [...props.list];
     for (let i = shuffledList.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffledList[i], shuffledList[j]] = [shuffledList[j], shuffledList[i]];
@@ -32,37 +49,51 @@ const Roulette = (props: RouletteProps) => {
   }, [props.list]);
 
   useEffect(() => {
-    if (!props.isClicked) return;
-    const randomNumber =
-      Math.floor(Math.random() * (inflatedList.length - 100)) + 100;
-    setRandomPick(0);
-    setTimeout(() => {
+    const spinRoulette = async () => {
+      if (!props.isClicked || inflatedList.length <= 1) return;
+
+      const randomNumber =
+        Math.floor(Math.random() * (inflatedList.length - 100)) + 100;
+
+      setRandomPick(0);
+      await sleep(500); // 첫 번째 대기 시간
+
       setRandomPick(randomNumber);
-    }, 500);
-  }, [inflatedList, props.isClicked]);
+      await sleep(2000); // 두 번째 대기 시간
+
+      setDebouncedResult([inflatedList[randomNumber], ...debouncedResult]);
+    };
+
+    spinRoulette();
+  }, [props.isClicked, inflatedList.length, inflatedList]);
+
+  if (inflatedList.length === 0) return <div>Loading...</div>;
 
   return (
     <>
       <section className={rouletteContainer}>
         <article
           style={{
-            height: "50px",
-            transform: `translateY(-${randomPick * 50}px)`,
+            height: "100px",
+            transform: `translateY(-${randomPick * 100}px)`,
             transition: randomPick !== 0 ? "transform 2s ease-in-out" : "",
           }}
         >
-          {inflatedList?.map((item, index) => (
+          {inflatedList.map((item, index) => (
             <div key={index} className={rouletteNumber}>
               {item.name}
             </div>
           ))}
         </article>
       </section>
-      <div style={{ color: "white", zIndex: 9999 }}>
-        {inflatedList[randomPick].name}
-        {inflatedList[randomPick].name !== RouletteStartMessage &&
-          "으로 갈까요?"}
-      </div>
+
+      {debouncedResult.length > 0 && (
+        <Slider {...settings}>
+          {debouncedResult.map((restaurant) => (
+            <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+          ))}
+        </Slider>
+      )}
     </>
   );
 };
