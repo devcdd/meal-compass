@@ -18,7 +18,7 @@ const Model = () => {
       objLoader.setMaterials(materials);
       objLoader.load("/Compass.obj", (object) => {
         // 모델 크기 조정 (2배 크기로 설정)
-        object.scale.set(2, 2, 2);
+        object.scale.set(1.7, 1.7, 1.7);
         setModel(object);
       });
     });
@@ -29,15 +29,8 @@ const Model = () => {
 
 const VolumetricCanvas = () => {
   return (
-    <Canvas
-      style={{
-        width: "100%",
-        height: "30vh",
-        padding: "10px",
-      }}
-    >
-      <OrbitControls autoRotate={true} enableZoom={false} />{" "}
-      {/* 확대/축소 비활성화 */}
+    <Canvas style={{ height: "40%" }}>
+      <OrbitControls autoRotate={true} enableZoom={false} />
       <ambientLight intensity={1} />
       <directionalLight position={[-1, 0, 1]} intensity={0.5} />
       <Model /> {/* 로드한 모델 추가 */}

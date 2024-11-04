@@ -1,7 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
 export const MCButton = style({
-  marginTop: "20px",
   padding: "10px 20px",
   fontSize: "16px",
   fontWeight: "bold",
@@ -14,6 +13,7 @@ export const MCButton = style({
   borderRadius: "5px",
   cursor: "pointer",
   transition: "background-color 0.3s",
+  userSelect: "none",
   ":hover": {
     backgroundColor: "#0056b3",
   },
