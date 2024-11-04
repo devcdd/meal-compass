@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { rouletteContainer, rouletteNumber } from "./Roulette.css.ts";
 import { IRestaurant } from "../../types";
 import { sleep } from "../../utils/common.ts";
-import { FlexHorizontal } from "../../styles/Layout/index.css.ts";
 import RestaurantCard from "../Card/RestaurantCard.tsx";
 import Slider from "react-slick";
 
