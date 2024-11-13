@@ -2,7 +2,6 @@ import { style } from "@vanilla-extract/css";
 
 export const MCButton = style({
   padding: "10px 20px",
-  fontSize: "16px",
   fontWeight: "bold",
   display: "flex",
   justifyContent: "center",

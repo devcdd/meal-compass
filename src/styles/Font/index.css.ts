@@ -3,7 +3,11 @@ import { style } from "@vanilla-extract/css";
 export const Title = style({
   fontSize: "1.5rem",
   fontWeight: "bold",
-  marginBottom: "10px",
+});
+
+export const Description = style({
+  color: "gray",
+  fontSize: "0.9rem",
 });
 
 export const SubTitle = style({

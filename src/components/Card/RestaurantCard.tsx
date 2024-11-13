@@ -1,7 +1,10 @@
 import React from "react";
 import { IRestaurant } from "../../types";
-import { Card } from "./index.css.ts";
-import { Title } from "../../styles/Font/index.css.ts";
+import { Card, CardImage } from "./index.css.ts";
+import { Description, Gray, Title } from "../../styles/Font/index.css.ts";
+import KakaoMap from "../KakaoMap/KakaoMap.tsx";
+import clsx from "clsx";
+import { Flex1, FlexVerticalLayout } from "../../styles/Layout/index.css.ts";
 
 interface RestaurantCardProps {
   restaurant: IRestaurant;
@@ -9,40 +12,41 @@ interface RestaurantCardProps {
 
 const RestaurantCard = (props: RestaurantCardProps) => {
   return (
-    <div
-      className={Card}
-      onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-      onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
-    >
-      <img
-        src={props.restaurant.image_list[0] || "/path/to/default-image.jpg"}
-        alt={"레스토랑 이미지가 없습니다."}
-        style={{
-          width: "300px",
-          height: "200px",
-          borderRadius: "8px",
-          objectFit: "cover",
-        }}
-      />
-      <div
-        style={{
-          margin: "1rem 0",
-          overflow: "hidden",
-          borderRadius: "8px",
-        }}
-      >
-        <div className={Title}>{props.restaurant.name}</div>
-        <p>{props.restaurant.location}</p>
-        <div>
-          <strong>태그: </strong>
-          {props.restaurant.tag_list.join(", ")}
+    <section className={Card}>
+      <section className={FlexVerticalLayout}>
+        <img
+          src={props.restaurant.image_list[0] || "/path/to/default-image.jpg"}
+          className={CardImage}
+          alt={"레스토랑 이미지가 없습니다."}
+        />
+        <article>
+          <div className={Title}>{props.restaurant.name}</div>
+          <div className={Description}>{props.restaurant.location}</div>
+        </article>
+        <div style={{ display: "flex", gap: "4px", justifyContent: "center" }}>
+          {props.restaurant.tag_list.map((tag) => (
+            <div
+              style={{
+                backgroundColor: "#0047DE",
+                borderRadius: "4px",
+                padding: "0px 4px",
+                fontSize: "0.8rem",
+              }}
+            >
+              <span style={{ marginRight: "2px" }}>#</span>
+              <span>{tag}</span>
+            </div>
+          ))}
         </div>
-        <div>
-          <strong>메뉴: </strong>
+        <div style={{ fontSize: "0.9rem" }}>
           {props.restaurant.menu_list.join(", ")}
         </div>
-      </div>
-    </div>
+        <KakaoMap
+          location={props.restaurant.location}
+          name={props.restaurant.name}
+        />
+      </section>
+    </section>
   );
 };
 

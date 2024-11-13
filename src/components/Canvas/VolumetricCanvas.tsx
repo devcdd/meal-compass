@@ -39,7 +39,7 @@ const Model = () => {
     gltfLoader.load("/Compass.gltf", (gltf) => {
       const scene = gltf.scene;
       scene.scale.set(2, 2, 2); // 모델 크기 조정 (2배 크기로 설정
-
+      scene.rotation.z = -5;
       // 모델의 모든 메쉬에 대해 재질 속성 조정
       scene.traverse((child) => {
         // @ts-ignore
@@ -69,7 +69,7 @@ const VolumetricCanvas = () => {
     <Canvas style={{ height: "40%" }}>
       <OrbitControls autoRotate={true} enableZoom={true} />
       <ambientLight intensity={1} />
-      <directionalLight position={[-1, 5, 1]} intensity={10} />
+      <directionalLight position={[-1, 6, 1]} intensity={30} />
       <Model /> {/* 로드한 모델 추가 */}
     </Canvas>
   );

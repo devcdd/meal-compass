@@ -5,19 +5,28 @@ export const PageLayout = style({
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
+  width: "100%",
+  maxWidth: "760px",
   height: "100vh",
-  padding: "20px",
+  padding: "10px",
   boxSizing: "border-box",
   textAlign: "center",
+  backgroundColor: "#191a1c",
 });
 
-export const FlexVertical = style({
+export const FlexVerticalLayout = style({
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  justifyContent: "space-between",
   width: "100%",
   height: "100%",
   gap: "10px",
+});
+
+export const FlexVerticalSection = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: "2px",
 });
 
 export const FlexHorizontal = style({

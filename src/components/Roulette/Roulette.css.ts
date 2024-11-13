@@ -1,8 +1,8 @@
 import { style } from "@vanilla-extract/css";
 
-export const rouletteContainer = style({
+export const RouletteScreen = style({
   overflow: "hidden",
-  height: "100px", // 각 숫자의 높이와 동일하게 설정
+  minHeight: "50px",
   width: "100%",
   display: "flex",
   flexDirection: "column",
@@ -12,9 +12,8 @@ export const rouletteContainer = style({
   color: "black",
 });
 
-export const rouletteNumber = style({
-  minHeight: "100px",
-  fontSize: "24px",
+export const RouletteItem = style({
+  minHeight: "50px",
   fontWeight: "bold",
   color: "#333",
   display: "flex",

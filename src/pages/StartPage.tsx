@@ -4,7 +4,8 @@ import VolumetricCanvas from "../components/Canvas/VolumetricCanvas.tsx";
 import {
   Flex1,
   FlexHorizontal,
-  FlexVertical,
+  FlexVerticalLayout,
+  FlexVerticalSection,
 } from "../styles/Layout/index.css.ts";
 import { Gray, Title } from "../styles/Font/index.css.ts";
 import { useNavigate } from "react-router-dom";
@@ -43,9 +44,9 @@ const StartPage = () => {
     <>
       <VolumetricCanvas />
       <article className={Flex1}>
-        <section className={clsx(FlexVertical)}>
-          <figure>
-            <div className={Title}>점심메뉴를 고르는 것은 일입니다.</div>
+        <section className={FlexVerticalLayout}>
+          <figure className={FlexVerticalLayout} style={{ height: "20%" }}>
+            <div className={Title}>점심메뉴를 고르는 것은 힘들다</div>
             <div>
               주변에 어떤 음식점들이 있는지도 알아야 당기는 메뉴들도 쉽게 찾을
               수 있을텐데 말이죠. 특히 회사를 다니시는 직장인들 같은 경우 모두의
@@ -54,17 +55,18 @@ const StartPage = () => {
             </div>
           </figure>
 
-          <figure className={clsx(FlexVertical, Flex1)}>
-            <div className={Title}>그래서 준비한 나침반.</div>
-            <article className={clsx(FlexVertical, Flex1)}>
-              <div>
-                <strong>N</strong>
+          <figure className={clsx(FlexVerticalLayout, Flex1)}>
+            <div className={Title}>그래서 준비한 나침반</div>
+            <div>네 가지 의미를 가지고 만들었습니다. </div>
+            <article className={clsx(FlexVerticalLayout, Flex1)}>
+              <div className={FlexVerticalSection}>
+                <strong className={Title}>N</strong>
                 <span className={Gray}>ew restaurant</span>
               </div>
               <div className={clsx(FlexHorizontal, Flex1)}>
-                <div className={Flex1}>
-                  <strong>W</strong>
-                  <span className={Gray}>eb, no installation</span>
+                <div className={clsx(FlexVerticalSection, Flex1)}>
+                  <strong className={Title}>W</strong>
+                  <span className={Gray}>eb</span>
                 </div>
                 <img
                   className={Swing}
@@ -75,13 +77,13 @@ const StartPage = () => {
                   src={"/compass-needle.png"}
                   alt={"나침반 바늘 이미지"}
                 />
-                <div className={Flex1}>
-                  <strong>E</strong>
-                  <span className={Gray}>asy solution to choose menu</span>
+                <div className={clsx(Flex1, FlexVerticalSection)}>
+                  <strong className={Title}>E</strong>
+                  <span className={Gray}>asy solution</span>
                 </div>
               </div>
-              <div>
-                <strong>S</strong>
+              <div className={FlexVerticalSection}>
+                <strong className={Title}>S</strong>
                 <span className={Gray}>top wasting time</span>
               </div>
             </article>

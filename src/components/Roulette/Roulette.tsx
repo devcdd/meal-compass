@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { rouletteContainer, rouletteNumber } from "./Roulette.css.ts";
+import { RouletteScreen, RouletteItem } from "./Roulette.css.ts";
 import { IRestaurant } from "../../types";
 import { sleep } from "../../utils/common.ts";
 import RestaurantCard from "../Card/RestaurantCard.tsx";
 import Slider from "react-slick";
+import Button from "../Button/Button.tsx";
+import { RouletteSlider } from "../../styles/ThirdParty/index.css.ts";
+import { FlexVerticalLayout } from "../../styles/Layout/index.css.ts";
 
 const RouletteStartMessage = "룰렛을 돌려주세요";
 
@@ -40,7 +43,7 @@ const Roulette = (props: RouletteProps) => {
 
     // 길이가 200이 될 때까지 부풀리기
     const extendedList = [{ id: -1, name: RouletteStartMessage }];
-    while (extendedList.length < 200) {
+    while (extendedList.length < 100) {
       extendedList.push(...shuffledList);
     }
 
@@ -52,7 +55,7 @@ const Roulette = (props: RouletteProps) => {
       if (!props.isClicked || inflatedList.length <= 1) return;
 
       const randomNumber =
-        Math.floor(Math.random() * (inflatedList.length - 100)) + 100;
+        Math.floor(Math.random() * (inflatedList.length - 100)) + 30;
 
       setRandomPick(0);
       await sleep(500); // 첫 번째 대기 시간
@@ -64,36 +67,39 @@ const Roulette = (props: RouletteProps) => {
     };
 
     spinRoulette();
-  }, [props.isClicked, inflatedList.length, inflatedList]);
+  }, [props.isClicked, inflatedList.length, inflatedList, debouncedResult]);
 
   if (inflatedList.length === 0) return <div>Loading...</div>;
 
   return (
-    <>
-      <section className={rouletteContainer}>
-        <article
+    <section className={FlexVerticalLayout}>
+      <article className={RouletteScreen}>
+        <section
           style={{
-            height: "100px",
-            transform: `translateY(-${randomPick * 100}px)`,
+            height: "50px",
+            transform: `translateY(-${randomPick * 50}px)`,
             transition: randomPick !== 0 ? "transform 2s ease-in-out" : "",
           }}
         >
           {inflatedList.map((item, index) => (
-            <div key={index} className={rouletteNumber}>
+            <div key={index} className={RouletteItem}>
               {item.name}
             </div>
           ))}
-        </article>
-      </section>
-
-      {debouncedResult.length > 0 && (
-        <Slider {...settings}>
-          {debouncedResult.map((restaurant) => (
-            <RestaurantCard key={restaurant.id} restaurant={restaurant} />
-          ))}
-        </Slider>
+        </section>
+      </article>
+      {debouncedResult.length >= 1 && (
+        <RestaurantCard restaurant={debouncedResult[0]} />
       )}
-    </>
+
+      {/*{debouncedResult.length > 0 && (*/}
+      {/*  <Slider {...settings} className={RouletteSlider}>*/}
+      {/*    {debouncedResult.map((restaurant) => (*/}
+      {/*      <RestaurantCard key={restaurant.id} restaurant={restaurant} />*/}
+      {/*    ))}*/}
+      {/*  </Slider>*/}
+      {/*)}*/}
+    </section>
   );
 };
 
