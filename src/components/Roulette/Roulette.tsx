@@ -52,22 +52,21 @@ const Roulette = (props: RouletteProps) => {
     return extendedList;
   }, [props.list]);
 
+  const spinRoulette = async () => {
+    if (!props.isClicked || inflatedList.length <= 1) return;
+
+    const randomNumber = Math.floor(Math.random() * (60 - 20 + 1)) + 20;
+
+    setRandomPick(0);
+    await sleep(500); // 첫 번째 대기 시간
+
+    setRandomPick(randomNumber);
+    await sleep(2000); // 두 번째 대기 시간
+
+    setDebouncedResult([inflatedList[randomNumber], ...debouncedResult]);
+  };
+
   useEffect(() => {
-    const spinRoulette = async () => {
-      if (!props.isClicked || inflatedList.length <= 1) return;
-
-      const randomNumber =
-        Math.floor(Math.random() * (inflatedList.length - 100)) + 30;
-
-      setRandomPick(0);
-      await sleep(500); // 첫 번째 대기 시간
-
-      setRandomPick(randomNumber);
-      await sleep(2000); // 두 번째 대기 시간
-
-      setDebouncedResult([inflatedList[randomNumber], ...debouncedResult]);
-    };
-
     spinRoulette();
   }, [props.isClicked, inflatedList.length, inflatedList, debouncedResult]);
 
