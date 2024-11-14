@@ -3,12 +3,12 @@ import Roulette from "../components/Roulette/Roulette.tsx";
 import Button from "../components/Button/Button.tsx";
 import { useRestaurantListQuery } from "../hooks/api/useRestaurantListQuery.ts";
 import { useRoulette } from "../hooks/util/useRoulette.ts";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const RoulettePage = () => {
   const restaurantListQuery = useRestaurantListQuery();
   const { isClicked, handleSpin } = useRoulette();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <>
