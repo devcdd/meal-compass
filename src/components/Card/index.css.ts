@@ -8,7 +8,7 @@ export const Card = style({
 
 export const CardImage = style({
   width: "100%",
-  maxHeight: "20rem",
+  maxHeight: "30vh",
   borderRadius: "8px",
   objectFit: "cover",
 });
