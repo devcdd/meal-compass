@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 declare global {
   interface Window {
@@ -40,10 +40,10 @@ const KakaoMap = (props: KakaoMapApiProps) => {
               result[0].x,
             ); // y: 위도, x: 경도
 
-            const newLocation = {
-              latitude: result[0].y,
-              longtitude: result[0].x,
-            };
+            // const newLocation = {
+            //   latitude: result[0].y,
+            //   longtitude: result[0].x,
+            // };
 
             const marker = new window.kakao.maps.Marker({
               map: map,

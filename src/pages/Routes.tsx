@@ -19,6 +19,10 @@ const router = createBrowserRouter([
     path: "*",
     element: <Navigate to="/start" replace={true} />,
   },
+  {
+    path: "/*",
+    element: <Navigate to="/start" replace={true} />,
+  },
 ]);
 
 export const Routes = () => {

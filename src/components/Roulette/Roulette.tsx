@@ -3,9 +3,9 @@ import { RouletteScreen, RouletteItem } from "./Roulette.css.ts";
 import { IRestaurant } from "../../types";
 import { sleep } from "../../utils/common.ts";
 import RestaurantCard from "../Card/RestaurantCard.tsx";
-import Slider from "react-slick";
-import Button from "../Button/Button.tsx";
-import { RouletteSlider } from "../../styles/ThirdParty/index.css.ts";
+// import Slider from "react-slick";
+// import Button from "../Button/Button.tsx";
+// import { RouletteSlider } from "../../styles/ThirdParty/index.css.ts";
 import { FlexVerticalLayout } from "../../styles/Layout/index.css.ts";
 
 const RouletteStartMessage = "룰렛을 돌려주세요";
@@ -17,18 +17,20 @@ interface RouletteProps {
 
 const Roulette = (props: RouletteProps) => {
   const [randomPick, setRandomPick] = useState(0);
-  const [debouncedResult, setDebouncedResult] = useState<IRestaurant[]>([]);
+  const [debouncedResult, setDebouncedResult] = useState<
+    Partial<IRestaurant>[]
+  >([]);
 
-  const settings = useMemo(() => {
-    return {
-      dots: true,
-      // accessibility: true,
-      infinite: debouncedResult.length > 1,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-    };
-  }, [debouncedResult]);
+  // const settings = useMemo(() => {
+  //   return {
+  //     dots: true,
+  //     // accessibility: true,
+  //     infinite: debouncedResult.length > 1,
+  //     speed: 500,
+  //     slidesToShow: 1,
+  //     slidesToScroll: 1,
+  //   };
+  // }, [debouncedResult]);
 
   const inflatedList = useMemo(() => {
     if (!props.list || props.list.length === 0)
@@ -44,7 +46,7 @@ const Roulette = (props: RouletteProps) => {
     // 길이가 200이 될 때까지 부풀리기
     const extendedList = [{ id: -1, name: RouletteStartMessage }];
     while (extendedList.length < 100) {
-      extendedList.push(...shuffledList);
+      extendedList.push(...(shuffledList as IRestaurant[]));
     }
 
     return extendedList;
@@ -89,7 +91,7 @@ const Roulette = (props: RouletteProps) => {
         </section>
       </article>
       {debouncedResult.length >= 1 && (
-        <RestaurantCard restaurant={debouncedResult[0]} />
+        <RestaurantCard restaurant={debouncedResult[0] as IRestaurant} />
       )}
 
       {/*{debouncedResult.length > 0 && (*/}

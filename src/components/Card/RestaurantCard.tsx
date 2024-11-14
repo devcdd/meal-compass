@@ -1,10 +1,8 @@
-import React from "react";
 import { IRestaurant } from "../../types";
 import { Card, CardImage } from "./index.css.ts";
-import { Description, Gray, Title } from "../../styles/Font/index.css.ts";
+import { Description, Title } from "../../styles/Font/index.css.ts";
 import KakaoMap from "../KakaoMap/KakaoMap.tsx";
-import clsx from "clsx";
-import { Flex1, FlexVerticalLayout } from "../../styles/Layout/index.css.ts";
+import { FlexVerticalLayout } from "../../styles/Layout/index.css.ts";
 
 interface RestaurantCardProps {
   restaurant: IRestaurant;

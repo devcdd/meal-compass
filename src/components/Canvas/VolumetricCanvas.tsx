@@ -1,10 +1,10 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useEffect, useState } from "react";
 import * as THREE from "three";
+// @ts-ignore
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+// @ts-ignore
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 const Model = () => {
