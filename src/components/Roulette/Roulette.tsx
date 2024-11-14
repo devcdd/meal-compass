@@ -6,7 +6,10 @@ import RestaurantCard from "../Card/RestaurantCard.tsx";
 // import Slider from "react-slick";
 // import Button from "../Button/Button.tsx";
 // import { RouletteSlider } from "../../styles/ThirdParty/index.css.ts";
-import { FlexVerticalLayout } from "../../styles/Layout/index.css.ts";
+import { Flex1, FlexVerticalLayout } from "../../styles/Layout/index.css.ts";
+import RouletteIcon from "../Icon/RouletteIcon.tsx";
+import clsx from "clsx";
+import { Gray, SubTitle } from "../../styles/Font/index.css.ts";
 
 const RouletteStartMessage = "룰렛을 돌려주세요";
 
@@ -74,11 +77,32 @@ const Roulette = (props: RouletteProps) => {
 
   return (
     <section className={FlexVerticalLayout}>
+      {debouncedResult.length >= 1 ? (
+        <RestaurantCard restaurant={debouncedResult[0] as IRestaurant} />
+      ) : (
+        <section
+          className={clsx(Flex1, FlexVerticalLayout)}
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "30px",
+          }}
+        >
+          <RouletteIcon
+            style={{
+              width: "80%",
+              fill: "gray",
+            }}
+          />
+          <span className={clsx(SubTitle, Gray)}>룰렛을 돌려주세요 !</span>
+        </section>
+      )}
+
       <article className={RouletteScreen}>
         <section
           style={{
-            height: "50px",
-            transform: `translateY(-${randomPick * 50}px)`,
+            height: "2.5rem",
+            transform: `translateY(-${randomPick * 2.5}rem)`,
             transition: randomPick !== 0 ? "transform 2s ease-in-out" : "",
           }}
         >
@@ -89,9 +113,6 @@ const Roulette = (props: RouletteProps) => {
           ))}
         </section>
       </article>
-      {debouncedResult.length >= 1 && (
-        <RestaurantCard restaurant={debouncedResult[0] as IRestaurant} />
-      )}
 
       {/*{debouncedResult.length > 0 && (*/}
       {/*  <Slider {...settings} className={RouletteSlider}>*/}
