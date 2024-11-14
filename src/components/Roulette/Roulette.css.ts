@@ -2,7 +2,7 @@ import { style } from "@vanilla-extract/css";
 
 export const RouletteScreen = style({
   overflow: "hidden",
-  minHeight: "50px",
+  minHeight: "2.5rem",
   width: "100%",
   display: "flex",
   flexDirection: "column",
@@ -13,7 +13,7 @@ export const RouletteScreen = style({
 });
 
 export const RouletteItem = style({
-  minHeight: "50px",
+  minHeight: "2.5rem",
   fontWeight: "bold",
   color: "#333",
   display: "flex",

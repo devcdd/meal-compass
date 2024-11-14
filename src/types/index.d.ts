@@ -12,4 +12,5 @@ export interface IRestaurant {
   tag_list: string[];
   image_list: string[];
   review_list?: IReview[];
+  description?: string;
 }
