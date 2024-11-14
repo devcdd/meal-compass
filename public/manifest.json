@@ -1,10 +1,10 @@
 {
-  "name": "vite-pwa",
-  "short_name": "vite-pwa",
+  "name": "Meal Compass",
+  "short_name": "MC",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#485EEE",
+  "theme_color": "#191a1c",
   "icons": [
     {
       "src": "icons/favicon-32x32.png",
