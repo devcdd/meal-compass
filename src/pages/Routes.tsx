@@ -4,6 +4,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import StartPage from "./StartPage.tsx";
+import RoulettePage from "./RoulettePage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,15 @@ const router = createBrowserRouter([
     element: <StartPage />,
   },
   {
+    path: "/roulette",
+    element: <RoulettePage />,
+  },
+  {
     path: "*",
+    element: <Navigate to="/start" replace={true} />,
+  },
+  {
+    path: "/*",
     element: <Navigate to="/start" replace={true} />,
   },
 ]);
