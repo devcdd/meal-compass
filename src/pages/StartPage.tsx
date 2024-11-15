@@ -11,6 +11,7 @@ import { Gray, Title } from "../styles/Font/index.css.ts";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { Swing } from "../styles/Animation/index.css.ts";
+import Layout from "./Layout.tsx";
 
 const StartPage = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const StartPage = () => {
   }, []);
 
   return (
-    <>
+    <Layout header={false}>
       <VolumetricCanvas height={"40%"} />
       <article className={Flex1}>
         <section className={FlexVerticalLayout}>
@@ -92,7 +93,7 @@ const StartPage = () => {
       </article>
 
       <Button onClick={() => navigate("/roulette")}>오늘의 점심 고르기</Button>
-    </>
+    </Layout>
   );
 };
 

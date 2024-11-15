@@ -1,20 +1,26 @@
 import { PageLayout } from "../styles/Layout/index.css.ts";
 import Navbar from "../components/Navbar/Navbar.tsx";
+import { ReactNode } from "react";
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children?: ReactNode;
+  header?: boolean;
+}
+
+const Layout = (props: LayoutProps) => {
   return (
     <section
       style={{
         width: "100%",
         height: "100%",
+        overflowY: "hidden",
         display: "flex",
-
         justifyContent: "center",
       }}
     >
       <main className={PageLayout}>
-        <Navbar />
-        {children}
+        {props.header !== false && <Navbar />}
+        {props.children}
       </main>
     </section>
   );
