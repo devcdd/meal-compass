@@ -7,6 +7,10 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 // @ts-ignore
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
+interface VolumetricCanvas {
+  style?: any;
+}
+
 const Model = () => {
   const [model, setModel] = useState<THREE.Group | null>(null);
 
@@ -64,9 +68,9 @@ const Model = () => {
   return model ? <primitive object={model} /> : null; // 모델이 로드되면 렌더링
 };
 
-const VolumetricCanvas = () => {
+const VolumetricCanvas = (props: VolumetricCanvas) => {
   return (
-    <Canvas style={{ height: "40%" }}>
+    <Canvas style={props.style}>
       <OrbitControls autoRotate={true} enableZoom={true} />
       <ambientLight intensity={1} />
       <directionalLight position={[-1, 6, 1]} intensity={30} />

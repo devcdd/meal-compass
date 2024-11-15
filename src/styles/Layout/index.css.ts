@@ -1,6 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 export const PageLayout = style({
+  position: "relative",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",

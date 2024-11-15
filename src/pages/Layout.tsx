@@ -1,4 +1,5 @@
 import { PageLayout } from "../styles/Layout/index.css.ts";
+import Navbar from "../components/Navbar/Navbar.tsx";
 
 const Layout = ({ children }) => {
   return (
@@ -7,10 +8,14 @@ const Layout = ({ children }) => {
         width: "100%",
         height: "100%",
         display: "flex",
+
         justifyContent: "center",
       }}
     >
-      <main className={PageLayout}>{children}</main>
+      <main className={PageLayout}>
+        <Navbar />
+        {children}
+      </main>
     </section>
   );
 };

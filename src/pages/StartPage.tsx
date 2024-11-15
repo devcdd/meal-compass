@@ -42,7 +42,7 @@ const StartPage = () => {
 
   return (
     <>
-      <VolumetricCanvas />
+      <VolumetricCanvas height={"40%"} />
       <article className={Flex1}>
         <section className={FlexVerticalLayout}>
           <figure className={FlexVerticalLayout} style={{ height: "20%" }}>
