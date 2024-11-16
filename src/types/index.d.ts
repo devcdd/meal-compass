@@ -22,4 +22,4 @@ interface Coordinate {
   longitude: number;
 }
 
-export type IconProps = SVGProps<never>;
+export type IconProps = SVGProps<SVGSVGElement>;

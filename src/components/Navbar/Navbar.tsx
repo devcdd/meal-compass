@@ -6,7 +6,7 @@ import {
 } from "../../styles/Layout/index.css.ts";
 import XIcon from "../Icon/XIcon.tsx";
 import { SmallIcon } from "../../styles/Icon/index.css.ts";
-import { SubTitle } from "../../styles/Font/index.css.ts";
+import { subTitle } from "../../styles/Font/index.css.ts";
 import ListIcon from "../Icon/ListIcon.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import { NavbarContainer, navbarRight } from "./Navbar.css.ts";
@@ -48,7 +48,8 @@ const Navbar = () => {
               }
             >
               <figure
-                className={SubTitle}
+                className={subTitle}
+                style={{ cursor: "pointer" }}
                 onClick={() => {
                   if (location.pathname !== "/main") {
                     navigate("/main");
@@ -60,7 +61,8 @@ const Navbar = () => {
                 음식점 리스트
               </figure>
               <div
-                className={SubTitle}
+                className={subTitle}
+                style={{ cursor: "pointer" }}
                 onClick={() => {
                   if (location.pathname !== "/roulette") {
                     navigate("/roulette");

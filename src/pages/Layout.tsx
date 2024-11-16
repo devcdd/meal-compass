@@ -1,10 +1,12 @@
-import { pageLayout } from "../styles/Layout/index.css.ts";
+import { pageLayout, pageLayoutHeight } from "../styles/Layout/index.css.ts";
 import Navbar from "../components/Navbar/Navbar.tsx";
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
+import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 interface LayoutProps {
   children?: ReactNode;
   header?: boolean;
+  scrollable?: boolean;
 }
 
 const Layout = (props: LayoutProps) => {
@@ -17,7 +19,14 @@ const Layout = (props: LayoutProps) => {
         justifyContent: "center",
       }}
     >
-      <main className={pageLayout}>
+      <main
+        className={pageLayout}
+        style={
+          assignInlineVars({
+            [pageLayoutHeight]: props.scrollable ? "auto" : "100vh",
+          }) as CSSProperties
+        }
+      >
         {props.header !== false && <Navbar />}
         {props.children}
       </main>

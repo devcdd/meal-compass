@@ -6,6 +6,7 @@ import {
 import StartPage from "./StartPage.tsx";
 import RoulettePage from "./RoulettePage.tsx";
 import MainPage from "./MainPage.tsx";
+import DetailPage from "./DetailPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/main",
     element: <MainPage />,
+  },
+  {
+    path: "/detail/:id",
+    element: <DetailPage />,
   },
   {
     path: "*",

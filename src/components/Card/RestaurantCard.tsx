@@ -1,13 +1,13 @@
 import { IRestaurant } from "../../types";
 import { Card, CardImage } from "./index.css.ts";
 import {
-  Description,
+  description,
   BlueDescription,
   Title,
   YellowDescription,
 } from "../../styles/Font/index.css.ts";
 import KakaoMap from "../KakaoMap/KakaoMap.tsx";
-import { flexVertical } from "../../styles/Layout/index.css.ts";
+import { flex1, flexVertical } from "../../styles/Layout/index.css.ts";
 import { calculateDistance } from "../../lib/util";
 import { useLocationStore } from "../../stores/useLocationStore.ts";
 import Button from "../Button/Button.tsx";
@@ -15,6 +15,7 @@ import Tag from "../Tag/Tag.tsx";
 
 interface RestaurantCardProps {
   restaurant: IRestaurant;
+  detail?: boolean;
 }
 
 const RestaurantCard = (props: RestaurantCardProps) => {
@@ -30,7 +31,7 @@ const RestaurantCard = (props: RestaurantCardProps) => {
         />
         <article>
           <div className={Title}>{props.restaurant.name}</div>
-          <div className={Description}>{props.restaurant.location}</div>
+          <div className={description}>{props.restaurant.location}</div>
         </article>
 
         <section>
@@ -52,16 +53,25 @@ const RestaurantCard = (props: RestaurantCardProps) => {
         )}
         {current.latitude !== 0 && current.longitude !== 0 && (
           <>
-            <div className={Description}>
-              현 위치로부터 약 {calculateDistance(current, destination)} 떨어져
-              있어요.
+            <div className={description}>
+              (실시간) 현 위치로부터 약{" "}
+              {calculateDistance(current, destination)} 떨어져 있어요.
             </div>
           </>
         )}
-        <KakaoMap
-          location={props.restaurant.location}
-          name={props.restaurant.name}
-        />
+        <section
+          className={!props.detail && flex1}
+          style={
+            props.detail && {
+              height: "40vh",
+            }
+          }
+        >
+          <KakaoMap
+            location={props.restaurant.location}
+            name={props.restaurant.name}
+          />
+        </section>
         <Button
           style={{
             backgroundColor: "#F6E242",
