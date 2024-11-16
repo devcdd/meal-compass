@@ -70,6 +70,10 @@ const RestaurantCard = (props: RestaurantCardProps) => {
             backgroundColor: "#F6E242",
             color: "#381F1F",
           }}
+          onClick={() => {
+            const kakaoCustomURL = `kakaomap://route?sp=${current.latitude},${current.longitude}&ep=${destination.latitude},${destination.longitude}&by=FOOT`;
+            window.location.href = kakaoCustomURL;
+          }}
         >
           카카오맵 바로가기
         </Button>
