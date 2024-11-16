@@ -1,4 +1,4 @@
-import { FlexVerticalLayout } from "../styles/Layout/index.css.ts";
+import { flexVertical } from "../styles/Layout/index.css.ts";
 import Roulette from "../components/Roulette/Roulette.tsx";
 import Button from "../components/Button/Button.tsx";
 import { useRestaurantListQuery } from "../hooks/api/useRestaurantListQuery.ts";
@@ -13,7 +13,7 @@ const RoulettePage = () => {
 
   return (
     <Layout>
-      <section className={FlexVerticalLayout}>
+      <section className={flexVertical}>
         <Roulette
           list={restaurantListQuery?.data || []}
           isClicked={isClicked}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { RouletteScreen, RouletteItem } from "./Roulette.css.ts";
 import { IRestaurant } from "../../types";
 import { sleep } from "../../utils/common.ts";
@@ -6,10 +6,11 @@ import RestaurantCard from "../Card/RestaurantCard.tsx";
 // import Slider from "react-slick";
 // import Button from "../Button/Button.tsx";
 // import { RouletteSlider } from "../../styles/ThirdParty/index.css.ts";
-import { Flex1, FlexVerticalLayout } from "../../styles/Layout/index.css.ts";
+import { flex1, flexVertical } from "../../styles/Layout/index.css.ts";
 import RouletteIcon from "../Icon/RouletteIcon.tsx";
 import clsx from "clsx";
 import { Gray, SubTitle } from "../../styles/Font/index.css.ts";
+import { Rotate } from "../../styles/Animation/index.css.ts";
 
 const RouletteStartMessage = "룰렛을 돌려주세요";
 
@@ -20,6 +21,7 @@ interface RouletteProps {
 
 const Roulette = (props: RouletteProps) => {
   const [randomPick, setRandomPick] = useState(0);
+  const [isSpinning, setIsSpinning] = useState(false);
   const [debouncedResult, setDebouncedResult] = useState<
     Partial<IRestaurant>[]
   >([]);
@@ -55,9 +57,10 @@ const Roulette = (props: RouletteProps) => {
     return extendedList;
   }, [props.list]);
 
-  const spinRoulette = async () => {
+  const spinRoulette = useCallback(async () => {
     if (!props.isClicked || inflatedList.length <= 1) return;
 
+    setIsSpinning(true);
     const randomNumber = Math.floor(Math.random() * (60 - 20 + 1)) + 20;
 
     setRandomPick(0);
@@ -67,21 +70,22 @@ const Roulette = (props: RouletteProps) => {
     await sleep(2000); // 두 번째 대기 시간
 
     setDebouncedResult([inflatedList[randomNumber], ...debouncedResult]);
-  };
+    setIsSpinning(false);
+  }, [debouncedResult, inflatedList, props.isClicked]);
 
   useEffect(() => {
     spinRoulette();
-  }, [props.isClicked, inflatedList.length, inflatedList, debouncedResult]);
+  }, [spinRoulette]);
 
   if (inflatedList.length === 0) return <div>Loading...</div>;
 
   return (
-    <section className={FlexVerticalLayout}>
+    <section className={flexVertical}>
       {debouncedResult.length >= 1 ? (
         <RestaurantCard restaurant={debouncedResult[0] as IRestaurant} />
       ) : (
         <section
-          className={clsx(Flex1, FlexVerticalLayout)}
+          className={clsx(flex1, flexVertical)}
           style={{
             justifyContent: "center",
             alignItems: "center",
@@ -89,12 +93,15 @@ const Roulette = (props: RouletteProps) => {
           }}
         >
           <RouletteIcon
+            className={isSpinning && Rotate}
             style={{
               width: "80%",
               fill: "gray",
             }}
           />
-          <span className={clsx(SubTitle, Gray)}>룰렛을 돌려주세요 !</span>
+          <span className={clsx(SubTitle, Gray)}>
+            {isSpinning ? "룰렛 돌아가는 중 .." : "룰렛을 돌려주세요 !"}
+          </span>
         </section>
       )}
 

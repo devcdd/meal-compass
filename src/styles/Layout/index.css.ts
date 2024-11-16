@@ -1,6 +1,10 @@
-import { style } from "@vanilla-extract/css";
+import { createVar, style } from "@vanilla-extract/css";
 
-export const PageLayout = style({
+export const flexJustifyContent = createVar();
+export const flexGap = createVar();
+export const flex = createVar();
+
+export const pageLayout = style({
   position: "relative",
   display: "flex",
   flexDirection: "column",
@@ -15,28 +19,32 @@ export const PageLayout = style({
   backgroundColor: "#191a1c",
 });
 
-export const FlexVerticalLayout = style({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
+export const flexVertical = style({
   width: "100%",
   height: "100%",
-  gap: "10px",
-});
 
-export const FlexVerticalSection = style({
   display: "flex",
   flexDirection: "column",
-  gap: "2px",
+  justifyContent: flexJustifyContent,
+  gap: flexGap,
+  flex: flex,
+
+  vars: { [flexJustifyContent]: "space-between", [flexGap]: "10px" },
 });
 
-export const FlexHorizontal = style({
+export const flexHorizontal = style({
+  vars: { [flexJustifyContent]: "space-between" },
+
+  width: "100%",
+  height: "100%",
+
   display: "flex",
   flexDirection: "row",
-  justifyContent: "center",
+  justifyContent: flexJustifyContent,
   alignItems: "center",
+  flex: flex,
 });
 
-export const Flex1 = style({
+export const flex1 = style({
   flex: 1,
 });

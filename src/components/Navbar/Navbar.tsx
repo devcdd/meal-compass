@@ -1,48 +1,83 @@
-import { useState } from "react";
-import { FlexHorizontal } from "../../styles/Layout/index.css.ts";
+import { CSSProperties, useState } from "react";
+import {
+  flexHorizontal,
+  flexJustifyContent,
+  flexVertical,
+} from "../../styles/Layout/index.css.ts";
 import XIcon from "../Icon/XIcon.tsx";
 import { SmallIcon } from "../../styles/Icon/index.css.ts";
 import { SubTitle } from "../../styles/Font/index.css.ts";
 import ListIcon from "../Icon/ListIcon.tsx";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { NavbarContainer, navbarRight } from "./Navbar.css.ts";
+import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <>
       {isOpen && (
-        <section
-          style={{
-            zIndex: 3,
-            position: "absolute",
-            backgroundColor: "#191a1c",
-            width: "100%",
-            height: "100%",
-            right: isOpen ? 0 : "100%",
-            transition: "right 0.5s ease-in-out", // 부드러운 애니메이션 효과
-          }}
+        <aside
+          className={NavbarContainer}
+          style={
+            assignInlineVars({
+              [navbarRight]: isOpen ? "0" : "-100%",
+            }) as CSSProperties
+          }
         >
-          <section style={{ padding: "10px", height: "100%" }}>
-            <div
-              className={FlexHorizontal}
-              style={{ justifyContent: "end" }}
-              onClick={() => setIsOpen(!isOpen)}
+          <section>
+            <header
+              className={flexHorizontal}
+              style={
+                assignInlineVars({
+                  [flexJustifyContent]: "end",
+                }) as CSSProperties
+              }
             >
               <XIcon className={SmallIcon} onClick={() => setIsOpen(!isOpen)} />
-            </div>
-            <div className={SubTitle} onClick={() => navigate("/main")}>
-              List
-            </div>
-            <div className={SubTitle} onClick={() => navigate("/roulette")}>
-              Roulette
-            </div>
+            </header>
+            <article
+              className={flexVertical}
+              style={
+                assignInlineVars({
+                  [flexJustifyContent]: "space-evenly",
+                }) as CSSProperties
+              }
+            >
+              <figure
+                className={SubTitle}
+                onClick={() => {
+                  if (location.pathname !== "/main") {
+                    navigate("/main");
+                    return;
+                  }
+                  setIsOpen(false);
+                }}
+              >
+                음식점 리스트
+              </figure>
+              <div
+                className={SubTitle}
+                onClick={() => {
+                  if (location.pathname !== "/roulette") {
+                    navigate("/roulette");
+                    return;
+                  }
+                  setIsOpen(false);
+                }}
+              >
+                룰렛 돌리기
+              </div>
+            </article>
           </section>
-        </section>
+        </aside>
       )}
 
       <header
-        className={FlexHorizontal}
+        className={flexHorizontal}
         style={{
           width: "100%",
           height: "30px",

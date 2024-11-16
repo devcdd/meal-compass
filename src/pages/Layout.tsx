@@ -1,4 +1,4 @@
-import { PageLayout } from "../styles/Layout/index.css.ts";
+import { pageLayout } from "../styles/Layout/index.css.ts";
 import Navbar from "../components/Navbar/Navbar.tsx";
 import { ReactNode } from "react";
 
@@ -13,12 +13,11 @@ const Layout = (props: LayoutProps) => {
       style={{
         width: "100%",
         height: "100%",
-        overflowY: "hidden",
         display: "flex",
         justifyContent: "center",
       }}
     >
-      <main className={PageLayout}>
+      <main className={pageLayout}>
         {props.header !== false && <Navbar />}
         {props.children}
       </main>

@@ -25,7 +25,7 @@ export const BlueDescription = style({
 export const SubTitle = style({
   fontSize: "1.3rem",
   fontWeight: 600,
-  marginBottom: "10px",
+  cursor: "pointer",
 });
 
 export const Gray = style({

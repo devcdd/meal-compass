@@ -17,4 +17,9 @@ export interface IRestaurant {
   description?: string;
 }
 
-export type IconProps = SVGProps;
+interface Coordinate {
+  latitude: number;
+  longitude: number;
+}
+
+export type IconProps = SVGProps<never>;
