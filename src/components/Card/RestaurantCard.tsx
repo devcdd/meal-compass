@@ -11,6 +11,7 @@ import { flexVertical } from "../../styles/Layout/index.css.ts";
 import { calculateDistance } from "../../lib/util";
 import { useLocationStore } from "../../stores/useLocationStore.ts";
 import Button from "../Button/Button.tsx";
+import Tag from "../Tag/Tag.tsx";
 
 interface RestaurantCardProps {
   restaurant: IRestaurant;
@@ -31,21 +32,13 @@ const RestaurantCard = (props: RestaurantCardProps) => {
           <div className={Title}>{props.restaurant.name}</div>
           <div className={Description}>{props.restaurant.location}</div>
         </article>
-        <div style={{ display: "flex", gap: "4px", justifyContent: "center" }}>
+
+        <section>
           {props.restaurant.tag_list.map((tag) => (
-            <div
-              style={{
-                backgroundColor: "#0047DE",
-                borderRadius: "4px",
-                padding: "0px 4px",
-                fontSize: "0.9rem",
-              }}
-            >
-              <span style={{ marginRight: "2px" }}>#</span>
-              <span>{tag}</span>
-            </div>
+            <Tag text={tag} />
           ))}
-        </div>
+        </section>
+
         <div style={{ fontSize: "1rem" }}>
           <span className={YellowDescription}>
             {props.restaurant.menu_list.join(", ")}
@@ -65,6 +58,10 @@ const RestaurantCard = (props: RestaurantCardProps) => {
             </div>
           </>
         )}
+        <KakaoMap
+          location={props.restaurant.location}
+          name={props.restaurant.name}
+        />
         <Button
           style={{
             backgroundColor: "#F6E242",
@@ -77,11 +74,6 @@ const RestaurantCard = (props: RestaurantCardProps) => {
         >
           카카오맵 바로가기
         </Button>
-
-        <KakaoMap
-          location={props.restaurant.location}
-          name={props.restaurant.name}
-        />
       </section>
     </section>
   );
