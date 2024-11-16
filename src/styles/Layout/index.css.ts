@@ -4,19 +4,23 @@ export const flexJustifyContent = createVar();
 export const flexGap = createVar();
 export const flex = createVar();
 
+export const pageLayoutHeight = createVar();
+
 export const pageLayout = style({
   position: "relative",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
   alignItems: "center",
   width: "100%",
   maxWidth: "760px",
-  height: "100vh",
   padding: "10px",
   boxSizing: "border-box",
   textAlign: "center",
   backgroundColor: "#191a1c",
+  height: pageLayoutHeight,
+  vars: {
+    [pageLayoutHeight]: "100vh",
+  },
 });
 
 export const flexVertical = style({
@@ -29,7 +33,7 @@ export const flexVertical = style({
   gap: flexGap,
   flex: flex,
 
-  vars: { [flexJustifyContent]: "space-between", [flexGap]: "10px" },
+  vars: { [flexJustifyContent]: "flex-start", [flexGap]: "10px" },
 });
 
 export const flexHorizontal = style({

@@ -5,7 +5,7 @@ export const Title = style({
   fontWeight: "bold",
 });
 
-export const Description = style({
+export const description = style({
   color: "gray",
   fontSize: "0.9rem",
 });
@@ -22,10 +22,9 @@ export const BlueDescription = style({
   fontWeight: "bold",
 });
 
-export const SubTitle = style({
-  fontSize: "1.3rem",
+export const subTitle = style({
+  fontSize: "1.1rem",
   fontWeight: 600,
-  cursor: "pointer",
 });
 
 export const Gray = style({

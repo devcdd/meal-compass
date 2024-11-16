@@ -66,18 +66,22 @@ const StartPage = () => {
               의견을 종합하여 메뉴를 선정해야 하기 때문에 더더욱 난이도가 쉽지
               않습니다.
             </div>
-          </figure>
-
-          <figure className={clsx(flexVertical)}>
             <div className={Title}>그래서 준비한 나침반</div>
-            <div>네 가지 의미를 가지고 만들었습니다. </div>
-            <article className={clsx(flexVertical)}>
+            <div>네 가지 의미를 가지고 만들었습니다.</div>
+            <article className={flexVertical}>
               <div className={flexVertical}>
                 <strong className={Title}>N</strong>
                 <span className={Gray}>ew restaurant</span>
               </div>
               <div className={clsx(flexHorizontal)}>
-                <div className={clsx(flexVertical)}>
+                <div
+                  className={flexVertical}
+                  style={
+                    assignInlineVars({
+                      [flexJustifyContent]: "flex-start",
+                    }) as CSSProperties
+                  }
+                >
                   <strong className={Title}>W</strong>
                   <span className={Gray}>eb</span>
                 </div>

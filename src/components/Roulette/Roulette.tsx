@@ -9,7 +9,7 @@ import RestaurantCard from "../Card/RestaurantCard.tsx";
 import { flex1, flexVertical } from "../../styles/Layout/index.css.ts";
 import RouletteIcon from "../Icon/RouletteIcon.tsx";
 import clsx from "clsx";
-import { Gray, SubTitle } from "../../styles/Font/index.css.ts";
+import { Gray, subTitle } from "../../styles/Font/index.css.ts";
 import { Rotate } from "../../styles/Animation/index.css.ts";
 
 const RouletteStartMessage = "룰렛을 돌려주세요";
@@ -99,7 +99,7 @@ const Roulette = (props: RouletteProps) => {
               fill: "gray",
             }}
           />
-          <span className={clsx(SubTitle, Gray)}>
+          <span className={clsx(subTitle, Gray)}>
             {isSpinning ? "룰렛 돌아가는 중 .." : "룰렛을 돌려주세요 !"}
           </span>
         </section>
