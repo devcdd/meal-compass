@@ -1,3 +1,5 @@
+import { SVGProps } from "react";
+
 export interface IReview {
   name: string;
   content: string;
@@ -14,3 +16,10 @@ export interface IRestaurant {
   review_list?: IReview[];
   description?: string;
 }
+
+interface Coordinate {
+  latitude: number;
+  longitude: number;
+}
+
+export type IconProps = SVGProps<never>;

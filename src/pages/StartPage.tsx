@@ -1,16 +1,18 @@
-import { useEffect } from "react";
+import { CSSProperties, useEffect } from "react";
 import Button from "../components/Button/Button.tsx";
 import VolumetricCanvas from "../components/Canvas/VolumetricCanvas.tsx";
 import {
-  Flex1,
-  FlexHorizontal,
-  FlexVerticalLayout,
-  FlexVerticalSection,
+  flex1,
+  flexHorizontal,
+  flexJustifyContent,
+  flexVertical,
 } from "../styles/Layout/index.css.ts";
 import { Gray, Title } from "../styles/Font/index.css.ts";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { Swing } from "../styles/Animation/index.css.ts";
+import Layout from "./Layout.tsx";
+import { assignInlineVars } from "@vanilla-extract/dynamic";
 
 const StartPage = () => {
   const navigate = useNavigate();
@@ -41,11 +43,22 @@ const StartPage = () => {
   }, []);
 
   return (
-    <>
-      <VolumetricCanvas />
-      <article className={Flex1}>
-        <section className={FlexVerticalLayout}>
-          <figure className={FlexVerticalLayout} style={{ height: "20%" }}>
+    <Layout header={false}>
+      <VolumetricCanvas
+        style={{
+          height: "40%",
+        }}
+      />
+      <article className={flex1}>
+        <section className={flexVertical}>
+          <figure
+            className={flexVertical}
+            style={
+              assignInlineVars({
+                [flexJustifyContent]: "normal",
+              }) as CSSProperties
+            }
+          >
             <div className={Title}>점심메뉴를 고르는 것은 힘들다</div>
             <div>
               주변에 어떤 음식점들이 있는지도 알아야 당기는 메뉴들도 쉽게 찾을
@@ -55,16 +68,16 @@ const StartPage = () => {
             </div>
           </figure>
 
-          <figure className={clsx(FlexVerticalLayout, Flex1)}>
+          <figure className={clsx(flexVertical)}>
             <div className={Title}>그래서 준비한 나침반</div>
             <div>네 가지 의미를 가지고 만들었습니다. </div>
-            <article className={clsx(FlexVerticalLayout, Flex1)}>
-              <div className={FlexVerticalSection}>
+            <article className={clsx(flexVertical)}>
+              <div className={flexVertical}>
                 <strong className={Title}>N</strong>
                 <span className={Gray}>ew restaurant</span>
               </div>
-              <div className={clsx(FlexHorizontal, Flex1)}>
-                <div className={clsx(FlexVerticalSection, Flex1)}>
+              <div className={clsx(flexHorizontal)}>
+                <div className={clsx(flexVertical)}>
                   <strong className={Title}>W</strong>
                   <span className={Gray}>eb</span>
                 </div>
@@ -77,12 +90,12 @@ const StartPage = () => {
                   src={"/compass-needle.png"}
                   alt={"나침반 바늘 이미지"}
                 />
-                <div className={clsx(Flex1, FlexVerticalSection)}>
+                <div className={clsx(flexVertical)}>
                   <strong className={Title}>E</strong>
                   <span className={Gray}>asy solution</span>
                 </div>
               </div>
-              <div className={FlexVerticalSection}>
+              <div className={flexVertical}>
                 <strong className={Title}>S</strong>
                 <span className={Gray}>top wasting time</span>
               </div>
@@ -92,7 +105,7 @@ const StartPage = () => {
       </article>
 
       <Button onClick={() => navigate("/roulette")}>오늘의 점심 고르기</Button>
-    </>
+    </Layout>
   );
 };
 

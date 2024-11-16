@@ -1,4 +1,8 @@
 import { useEffect } from "react";
+import {
+  setCurrentLocation,
+  setDestinationLocation,
+} from "../../stores/useLocationStore.ts";
 
 declare global {
   interface Window {
@@ -12,6 +16,21 @@ interface KakaoMapApiProps {
 }
 
 const KakaoMap = (props: KakaoMapApiProps) => {
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      setCurrentLocation({
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude,
+      });
+    });
+    navigator.geolocation.watchPosition((pos) => {
+      setCurrentLocation({
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude,
+      });
+    });
+  }, []);
+
   useEffect(() => {
     const kakaoMapScript = document.createElement("script");
     kakaoMapScript.async = false;
@@ -40,10 +59,10 @@ const KakaoMap = (props: KakaoMapApiProps) => {
               result[0].x,
             ); // y: 위도, x: 경도
 
-            // const newLocation = {
-            //   latitude: result[0].y,
-            //   longtitude: result[0].x,
-            // };
+            setDestinationLocation({
+              latitude: result[0].y,
+              longitude: result[0].x,
+            });
 
             const marker = new window.kakao.maps.Marker({
               map: map,

@@ -1,6 +1,13 @@
-import { PageLayout } from "../styles/Layout/index.css.ts";
+import { pageLayout } from "../styles/Layout/index.css.ts";
+import Navbar from "../components/Navbar/Navbar.tsx";
+import { ReactNode } from "react";
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children?: ReactNode;
+  header?: boolean;
+}
+
+const Layout = (props: LayoutProps) => {
   return (
     <section
       style={{
@@ -10,7 +17,10 @@ const Layout = ({ children }) => {
         justifyContent: "center",
       }}
     >
-      <main className={PageLayout}>{children}</main>
+      <main className={pageLayout}>
+        {props.header !== false && <Navbar />}
+        {props.children}
+      </main>
     </section>
   );
 };
