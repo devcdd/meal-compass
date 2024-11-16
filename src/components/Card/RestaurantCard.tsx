@@ -1,5 +1,5 @@
 import { IRestaurant } from "../../types";
-import { Card, CardImage, hashtag } from "./index.css.ts";
+import { Card, CardImage } from "./index.css.ts";
 import {
   Description,
   BlueDescription,

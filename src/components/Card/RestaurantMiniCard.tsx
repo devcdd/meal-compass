@@ -1,12 +1,11 @@
-import React, { CSSProperties } from "react";
+import { CSSProperties } from "react";
 import { IRestaurant } from "../../types";
 import {
-  flexHorizontal,
   flexJustifyContent,
   flexVertical,
 } from "../../styles/Layout/index.css.ts";
-import { CardImage, MiniCard, MiniCardImage } from "./index.css.ts";
-import { Description, SubTitle, Title } from "../../styles/Font/index.css.ts";
+import { MiniCard, MiniCardImage } from "./index.css.ts";
+import { Description, SubTitle } from "../../styles/Font/index.css.ts";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import Tag from "../Tag/Tag.tsx";
 
